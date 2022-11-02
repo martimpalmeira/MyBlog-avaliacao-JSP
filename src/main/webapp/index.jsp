@@ -30,9 +30,8 @@
                    for(Post post : posts){
                         out.write("<div class='post'>");
                         out.write("<h3>" + post.getTitle() + "</h3>");
-                        String contentSubStr = post.getContent().substring(0,16);
-                        out.write("<p>" + contentSubStr+"..." + "</p>");
-                        out.write("<button class='btn-show-post'>Ver Post completo</button>");
+                        out.write("<p class='post-content'>" + post.getContent() +"..." + "</p>");
+                        out.write("<button class='btn-show-post'>Ver mais</button>");
                         out.write("</div>");
                    }
                 %>
@@ -41,8 +40,43 @@
     </main>
     
 
+    
+    <script>
+        const showPostBtns = document.querySelectorAll('.btn-show-post');
+        const postTexts = document.querySelectorAll('.post-content');
+        const allPosts = document.querySelectorAll('.post');
 
+        let arrayPostTexts = [];
+        
+        postTexts.forEach(postText =>{
+            arrayPostTexts.push(postText.textContent);
+            postText.innerText = postText.innerText.substring(0,15) + "..."
+        })
+        
+    
+        showPostBtns.forEach( btn =>{
+            
+            btn.addEventListener('click',()=>{
+                const postDiv = btn.parentNode;
+                const indexPost = Array.prototype.indexOf.call(allPosts, postDiv); 
 
+                if(!postDiv.classList.contains('show-total-text')){            
+                postDiv.childNodes[1].innerText = arrayPostTexts[indexPost]
+                postDiv.childNodes[2].innerText = "Ver menos";
+                postDiv.classList.add('show-total-text');
+                }else{
+                    postDiv.childNodes[1].innerText = arrayPostTexts[indexPost].substring(0,15) + "...";
+                    postDiv.classList.remove('show-total-text');
+                    postDiv.childNodes[2].innerText = "Ver mais";
+                }
+
+                
+            })
+        }
+        )
+
+        
+    </script>
 
 
 </body>
