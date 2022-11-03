@@ -3,13 +3,15 @@ package model.entities;
 import model.enums.CommentStatus;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Comment {
 
-    private Long id;
+    private Integer id;
 
     private String text;
 
+    private Post post;
     private User user;
 
     private Date moment;
@@ -19,19 +21,21 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(Long id, String text, User user, Date moment, CommentStatus commentStatus) {
+    public Comment(Integer id, Post post, User user, String text, Date moment, CommentStatus commentStatus) {
         this.id = id;
         this.text = text;
+        this.post = post;
         this.user = user;
         this.moment = moment;
         this.commentStatus = commentStatus;
     }
 
-    public Long getId() {
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -65,5 +69,38 @@ public class Comment {
 
     public void setCommentStatus(CommentStatus commentStatus) {
         this.commentStatus = commentStatus;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", post=" + post +
+                ", user=" + user +
+                ", moment=" + moment +
+                ", commentStatus=" + commentStatus +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Comment comment = (Comment) o;
+        return id.equals(comment.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

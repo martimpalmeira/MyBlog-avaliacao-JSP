@@ -41,4 +41,28 @@ public class PostDAO {
             DB.closeResultSet(rs);
         }
     }
+
+    public Post findById(Integer id) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+            ps = con.prepareStatement("SELECT * FROM tb_posts WHERE Id = ?");
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Post(rs.getLong(1), DaoFactory.createUserDAO().
+                        findById((rs.getInt(2))), rs.getString(3),
+                        rs.getString(4), rs.getDate(5));
+            }
+
+            return null;
+
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(ps);
+            DB.closeResultSet(rs);
+        }
+    }
 }

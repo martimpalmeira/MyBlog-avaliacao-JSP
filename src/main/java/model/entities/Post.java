@@ -4,12 +4,13 @@ package model.entities;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Post {
 
-    private static List<Comment> comments = new ArrayList<Comment>();
+    private List<Comment> comments = new ArrayList<Comment>();
 
-    private Long id;
+    private Integer id;
 
     private String title;
 
@@ -22,7 +23,7 @@ public class Post {
     public Post() {
     }
 
-    public Post(Long id, User user, String title, String content, Date moment) {
+    public Post(Integer id, User user, String title, String content, Date moment) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -30,11 +31,11 @@ public class Post {
         this.moment = moment;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -70,7 +71,7 @@ public class Post {
         this.moment = moment;
     }
 
-    public static List<Comment> getComments() {
+    public List<Comment> getComments() {
         return new ArrayList<Comment>(comments);
     }
 
@@ -91,5 +92,18 @@ public class Post {
                 ", user=" + user +
                 ", moment=" + moment +
                 "}";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Post post = (Post) o;
+        return Objects.equals(id, post.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

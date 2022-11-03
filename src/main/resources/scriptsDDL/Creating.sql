@@ -19,13 +19,14 @@ CREATE TABLE tb_posts (
 
 CREATE TABLE tb_comments(
 	id INT PRIMARY KEY AUTO_INCREMENT,
+    post_id INT,
     user_id INT,
     content VARCHAR(100),
     moment DATETIME,
     commentStatus VARCHAR(20),
-    FOREIGN KEY (user_id) REFERENCES tb_users(id)
+    FOREIGN KEY (user_id) REFERENCES tb_users(id),
+    FOREIGN KEY (post_id) REFERENCES tb_posts(id)
 );
-
 
 DROP TABLE tb_posts;
 

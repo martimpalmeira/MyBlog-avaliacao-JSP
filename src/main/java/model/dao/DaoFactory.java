@@ -12,5 +12,8 @@ public class DaoFactory {
         return new PostDAO(DB.getConnection());
     }
 
+    public static CommentDAO createCommentDAO(){
+        return new CommentDAO(DB.getConnection());
+    }
 
 }
